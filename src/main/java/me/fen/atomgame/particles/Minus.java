@@ -1,4 +1,4 @@
-package me.fen.atomgame;
+package me.fen.atomgame.particles;
 
 public class Minus implements Particle {
     @Override
@@ -16,6 +16,6 @@ public class Minus implements Particle {
 
     @Override
     public String toString() {
-        return "le minus";
+        return "minus";
     }
 }

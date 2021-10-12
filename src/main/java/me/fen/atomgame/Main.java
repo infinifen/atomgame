@@ -1,5 +1,10 @@
 package me.fen.atomgame;
 
+import me.fen.atomgame.particles.Atom;
+import me.fen.atomgame.particles.DarkPlus;
+import me.fen.atomgame.particles.Particle;
+import me.fen.atomgame.particles.Plus;
+
 import java.util.List;
 import java.util.Scanner;
 

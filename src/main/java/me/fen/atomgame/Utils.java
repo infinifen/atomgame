@@ -1,5 +1,8 @@
 package me.fen.atomgame;
 
+import me.fen.atomgame.particles.Particle;
+import me.fen.atomgame.particles.ParticleType;
+
 public class Utils {
     public static boolean isAtom(Particle p) {
         return p.getParticleType() == ParticleType.ATOM;

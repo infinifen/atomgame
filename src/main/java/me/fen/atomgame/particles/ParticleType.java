@@ -1,4 +1,4 @@
-package me.fen.atomgame;
+package me.fen.atomgame.particles;
 
 public enum ParticleType {
     ATOM,

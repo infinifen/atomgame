@@ -1,10 +1,13 @@
-package me.fen.atomgame;
+package me.fen.atomgame.particles;
+
+import me.fen.atomgame.particles.Particle;
+import me.fen.atomgame.particles.ParticleType;
 
 public class Atom implements Particle {
 
     private Integer atomicNumber;
 
-    Atom(int z) {
+    public Atom(int z) {
         atomicNumber = z;
     }
 

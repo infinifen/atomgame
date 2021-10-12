@@ -1,5 +1,10 @@
 package me.fen.atomgame;
 
+import me.fen.atomgame.particles.Atom;
+import me.fen.atomgame.particles.Particle;
+import me.fen.atomgame.particles.ParticleType;
+import me.fen.atomgame.particles.Plus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -102,7 +107,7 @@ public class Game {
                         if (next.getAtomicNumber() < newAtomicNumber) {
                             newAtomicNumber++;
                         } else {
-                            newAtomicNumber += 2;
+                            newAtomicNumber = Math.max(newAtomicNumber, next.getAtomicNumber()) + 2;
                         }
                     }
                     radius++;

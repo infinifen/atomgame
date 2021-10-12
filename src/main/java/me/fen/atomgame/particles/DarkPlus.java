@@ -1,4 +1,4 @@
-package me.fen.atomgame;
+package me.fen.atomgame.particles;
 
 public class DarkPlus implements Particle {
     public DarkPlus() {
@@ -16,6 +16,6 @@ public class DarkPlus implements Particle {
 
     @Override
     public String toString() {
-        return "le plus negro";
+        return "dark plus";
     }
 }

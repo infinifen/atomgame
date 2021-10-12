@@ -1,11 +1,13 @@
 package me.fen.atomgame;
 
+import me.fen.atomgame.particles.*;
+
 import java.util.Random;
 
 public class DefaultParticleRandomizer implements ParticleRandomizer {
     public static final double ATOM_CUTOFF = 0.0;
     public static final double PLUS_CUTOFF = 0.7; // 70% atom chance
-    private static final double MINUS_CUTOFF = 0.71; // 21% plus chance
+    private static final double MINUS_CUTOFF = 0.91; // 21% plus chance
     public static final double DARK_PLUS_CUTOFF = 0.985; // 7.5% minus chance, 1,5% dark plus chance
 
 
