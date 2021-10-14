@@ -123,6 +123,9 @@ public class Game {
         return particles;
     }
 
+    public Particle getNext() {
+        return next;
+    }
 
     /**
      * Applies the next particle to the given index and processes physics
