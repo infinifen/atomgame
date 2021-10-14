@@ -23,7 +23,8 @@ public class DefaultParticleRandomizer implements ParticleRandomizer {
             return new DarkPlus();
         }
         if (roll > MINUS_CUTOFF) {
-            return new Minus();
+            if (game.particles.size() > 0) return new Minus();
+            else return new Plus();
         }
         if (roll > PLUS_CUTOFF) {
             return new Plus();
