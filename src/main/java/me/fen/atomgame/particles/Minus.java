@@ -8,7 +8,7 @@ public class Minus implements Particle {
 
     @Override
     public boolean isAtomOperation() {
-        return false;
+        return true;
     }
 
     public Minus() {
