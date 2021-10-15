@@ -6,6 +6,11 @@ public class Minus implements Particle {
         return 1;
     }
 
+    @Override
+    public boolean isAtomOperation() {
+        return false;
+    }
+
     public Minus() {
     }
 

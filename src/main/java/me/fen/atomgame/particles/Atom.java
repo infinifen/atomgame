@@ -20,6 +20,11 @@ public class Atom implements Particle {
         return atomicNumber;
     }
 
+    @Override
+    public boolean isAtomOperation() {
+        return false;
+    }
+
     public Integer getAtomicNumber() {
         return atomicNumber;
     }

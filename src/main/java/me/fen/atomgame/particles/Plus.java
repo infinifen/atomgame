@@ -15,6 +15,11 @@ public class Plus implements Particle {
     }
 
     @Override
+    public boolean isAtomOperation() {
+        return false;
+    }
+
+    @Override
     public String toString() {
         return "plus";
     }

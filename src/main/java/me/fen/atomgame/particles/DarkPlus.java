@@ -15,6 +15,11 @@ public class DarkPlus implements Particle {
     }
 
     @Override
+    public boolean isAtomOperation() {
+        return false;
+    }
+
+    @Override
     public String toString() {
         return "dark plus";
     }
