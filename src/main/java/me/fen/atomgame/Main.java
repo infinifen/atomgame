@@ -23,10 +23,16 @@ public class Main {
                 g.specialAbility();
             else {
                 int idx = Integer.parseInt(line);
-                List<FusionResult> fr = g.doMove(idx);
-                if (fr.size() > 0) {
-                    System.out.println("Reaction(s) occured: " + fr);
+                try {
+                    List<FusionResult> fr = g.doMove(idx);
+                    if (fr.size() > 0) {
+                        System.out.println("Reaction(s) occured: " + fr);
+                    }
+                } catch (GameOverException e) {
+                    System.out.println("Game over!");
+                    System.exit(0);
                 }
+
             }
 
         }

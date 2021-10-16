@@ -133,7 +133,10 @@ public class Game {
      * @param placementIndex index to which the current particle should be applied
      * @return Result of fusion or null if no fusion occured
      */
-    public List<FusionResult> doMove(int placementIndex) {
+    public List<FusionResult> doMove(int placementIndex) throws GameOverException {
+        if (isGameOver()) {
+            throw new GameOverException();
+        }
         ParticleType particleType = next.getParticleType();
         return switch (particleType) {
             case ATOM, PLUS, DARK_PLUS -> {
