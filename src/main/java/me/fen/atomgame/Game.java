@@ -6,6 +6,7 @@ import me.fen.atomgame.particles.ParticleType;
 import me.fen.atomgame.particles.Plus;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Game {
@@ -13,6 +14,7 @@ public class Game {
     CircularList<Particle> particles;
     Particle next;
     ParticleRandomizer randomizer;
+    ScoringStrategy scoringStrategy = new DefaultScoringStrategy();
     public static final int PARTICLE_LIMIT = 18;
 
     public Game(ParticleRandomizer rand) {
@@ -31,6 +33,7 @@ public class Game {
         Integer fusionCenter = findFusion();
         while (fusionCenter != null) {
             FusionResult result = processFusion(fusionCenter);
+            scoringStrategy.scoreFusion(result, this);
             removeFusedParticles(result);
             r.add(result);
             fusionCenter = findFusion();
@@ -81,16 +84,20 @@ public class Game {
         Particle centerParticle = particles.get(center);
         int radius;
         int newAtomicNumber;
+        List<Integer> atomicNumberSteps = new ArrayList<>();
         if (Utils.isDarkPlus(centerParticle)) {
             radius = 2; // ignore the nearest two particles because dark pluses will join anything
             Particle next = particles.get(center + 1);
             Particle prev = particles.get(center - 1);
+            atomicNumberSteps.add(prev.getReactionValue());
             // dark plus increments the atomic number of the larger of the things by 3
             newAtomicNumber = Math.max(prev.getReactionValue(), next.getReactionValue()) + 3;
+            atomicNumberSteps.add(newAtomicNumber);
             System.out.println(newAtomicNumber);
         } else {
             radius = 1;
             newAtomicNumber = particles.get(center + 1).getReactionValue();
+            atomicNumberSteps.add(newAtomicNumber);
         }
         // the particles next to the plus are guaranteed to be the same and atoms
         while (radius <= ((particles.size() - 1) / 2)) {
@@ -111,12 +118,13 @@ public class Game {
                         }
                     }
                     radius++;
+                    atomicNumberSteps.add(newAtomicNumber);
                     continue;
                 }
             }
             break;
         }
-        return new FusionResult(newAtomicNumber, center, radius - 1);
+        return new FusionResult(newAtomicNumber, center, radius - 1, atomicNumberSteps);
     }
 
     public CircularList<Particle> getParticles() {
