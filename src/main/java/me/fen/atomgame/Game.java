@@ -161,6 +161,10 @@ public class Game {
         };
     }
 
+    public long getScore() {
+        return scoringStrategy.getScore();
+    }
+
     public boolean isGameOver() {
         return particles.size() > PARTICLE_LIMIT;
     }
@@ -177,6 +181,7 @@ public class Game {
         return "Game{" +
                 "particles=" + particles +
                 ", next=" + next +
+                ", score=" + getScore() +
                 '}';
     }
 }
