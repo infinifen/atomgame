@@ -14,12 +14,13 @@ public class Game {
     CircularList<Particle> particles;
     Particle next;
     ParticleRandomizer randomizer;
-    ScoringStrategy scoringStrategy = new DefaultScoringStrategy();
+    ScoringStrategy scoringStrategy;
     public static final int PARTICLE_LIMIT = 18;
 
-    public Game(ParticleRandomizer rand) {
+    public Game(ParticleRandomizer rand, ScoringStrategy sc) {
         particles = new CircularList<>(19);
         randomizer = rand;
+        scoringStrategy = sc;
         rerollNext();
     }
 
@@ -143,6 +144,7 @@ public class Game {
      */
     public List<FusionResult> doMove(int placementIndex) throws GameOverException {
         if (isGameOver()) {
+            scoringStrategy.scoreGameOver(this);
             throw new GameOverException();
         }
         ParticleType particleType = next.getParticleType();

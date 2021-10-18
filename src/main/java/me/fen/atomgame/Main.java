@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        Game g = new Game(new DefaultParticleRandomizer());
+        Game g = new Game(new DefaultParticleRandomizer(), new DefaultScoringStrategy());
         Particle[] a = {new Atom(4), new Atom(3), new DarkPlus(), new Plus(), new Atom(3)};
         g.particles = new CircularList<>(List.of(a));
         while (!g.isGameOver()) {
@@ -29,7 +29,7 @@ public class Main {
                         System.out.println("Reaction(s) occured: " + fr);
                     }
                 } catch (GameOverException e) {
-                    System.out.println("Game over!");
+                    System.out.println("Game over! Final score: " + g.getScore());
                     System.exit(0);
                 }
 
