@@ -10,12 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DefaultGame implements Gamemode {
+    public static final int PARTICLE_LIMIT = 18;
     boolean isNextMinusAbsorbed = false;
     CircularList<Particle> particles;
-    Particle next;
+    List<Particle> next = new ArrayList<>(List.of(new Plus())); // workaroundish placeholder plus
     ParticleRandomizer randomizer;
     ScoringStrategy scoringStrategy;
-    public static final int PARTICLE_LIMIT = 18;
 
     public DefaultGame(ParticleRandomizer rand, ScoringStrategy sc) {
         particles = new CircularList<>(19);
@@ -25,7 +25,7 @@ public class DefaultGame implements Gamemode {
     }
 
     protected void rerollNext() {
-        next = randomizer.generateNext(this);
+        next.set(0, randomizer.generateNext(this));
     }
 
     protected List<FusionResult> processTick() {
@@ -72,7 +72,7 @@ public class DefaultGame implements Gamemode {
                 return i;
             }
             if (Utils.isAtom(next) && Utils.isAtom(prev) && Utils.isPlus(center)) {
-                if (prev.getReactionValue() == next.getReactionValue()){
+                if (prev.getReactionValue() == next.getReactionValue()) {
                     System.out.format("Fusion with center on %d\n", i);
                     return i;
                 }
@@ -133,7 +133,7 @@ public class DefaultGame implements Gamemode {
     }
 
     public List<Particle> getNext() {
-        return List.of(next);
+        return next;
     }
 
     /**
@@ -147,16 +147,16 @@ public class DefaultGame implements Gamemode {
             scoringStrategy.scoreGameOver(this);
             throw new GameOverException();
         }
-        ParticleType particleType = next.getParticleType();
+        ParticleType particleType = next.get(0).getParticleType();
         return switch (particleType) {
             case ATOM, PLUS, DARK_PLUS -> {
-                particles.add(placementIndex, next);
+                particles.add(placementIndex, next.get(0));
                 isNextMinusAbsorbed = false;
                 rerollNext();
                 yield processTick();
             }
             case MINUS -> {
-                next = particles.remove(placementIndex);
+                next.set(0, particles.remove(placementIndex));
                 isNextMinusAbsorbed = true;
                 yield processTick();
             }
@@ -173,7 +173,7 @@ public class DefaultGame implements Gamemode {
 
     public void specialAbility() {
         if (isNextMinusAbsorbed) {
-            next = new Plus();
+            next.set(0, new Plus());
             isNextMinusAbsorbed = false;
         }
     }
