@@ -1,6 +1,6 @@
 package me.fen.atomgame;
 
-import me.fen.atomgame.gamemodes.DefaultGame;
+import me.fen.atomgame.gamemodes.Gamemode;
 import me.fen.atomgame.particles.Particle;
 
 public class DefaultScoringStrategy implements ScoringStrategy {
@@ -12,7 +12,7 @@ public class DefaultScoringStrategy implements ScoringStrategy {
     }
 
     @Override
-    public long scoreFusion(FusionResult result, DefaultGame game) {
+    public long scoreFusion(FusionResult result, Gamemode game) {
         // algorithm as described at https://atomas.fandom.com/wiki/Score
         // FIXME: 16.10.2021 initial reaction from a dark plus should not be calculated as a +2 reaction
         long finalScore = 0;
@@ -37,7 +37,7 @@ public class DefaultScoringStrategy implements ScoringStrategy {
     }
 
     @Override
-    public long scoreGameOver(DefaultGame game) {
+    public long scoreGameOver(Gamemode game) {
         return game.getParticles().stream().mapToInt(Particle::getReactionValue).sum();
     }
 }

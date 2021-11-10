@@ -10,7 +10,7 @@ import java.util.List;
 public interface Gamemode {
     CircularList<Particle> getParticles();
 
-    Particle getNext();
+    List<Particle> getNext();
 
     List<FusionResult> doMove(int placementIndex) throws GameOverException;
 

@@ -7,10 +7,9 @@ import me.fen.atomgame.particles.ParticleType;
 import me.fen.atomgame.particles.Plus;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
-public class DefaultGame {
+public class DefaultGame implements Gamemode {
     boolean isNextMinusAbsorbed = false;
     CircularList<Particle> particles;
     Particle next;
@@ -26,7 +25,7 @@ public class DefaultGame {
     }
 
     protected void rerollNext() {
-        next = randomizer.generateNext((Gamemode) this);
+        next = randomizer.generateNext(this);
     }
 
     protected List<FusionResult> processTick() {
@@ -133,8 +132,8 @@ public class DefaultGame {
         return particles;
     }
 
-    public Particle getNext() {
-        return next;
+    public List<Particle> getNext() {
+        return List.of(next);
     }
 
     /**
