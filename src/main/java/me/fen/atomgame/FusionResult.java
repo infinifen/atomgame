@@ -3,10 +3,10 @@ package me.fen.atomgame;
 import java.util.List;
 
 public class FusionResult {
-    int newAtomicNumber;
-    int center;
-    int radius;
-    List<Integer> atomicNumberSteps; // convenience field so scoring strategies don't need to replicate the fusion logic
+    public int newAtomicNumber;
+    public int center;
+    public int radius;
+    public List<Integer> atomicNumberSteps; // convenience field so scoring strategies don't need to replicate the fusion logic
 
     public FusionResult(int newAtomicNumber, int center, int radius, List<Integer> atomicNumberSteps) {
         this.newAtomicNumber = newAtomicNumber;

@@ -1,15 +1,15 @@
-package me.fen.atomgame;
+package me.fen.atomgame.gamemodes;
 
+import me.fen.atomgame.*;
 import me.fen.atomgame.particles.Atom;
 import me.fen.atomgame.particles.Particle;
 import me.fen.atomgame.particles.ParticleType;
 import me.fen.atomgame.particles.Plus;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
-public class Game {
+public class DefaultGame implements Gamemode {
     boolean isNextMinusAbsorbed = false;
     CircularList<Particle> particles;
     Particle next;
@@ -17,7 +17,7 @@ public class Game {
     ScoringStrategy scoringStrategy;
     public static final int PARTICLE_LIMIT = 18;
 
-    public Game(ParticleRandomizer rand, ScoringStrategy sc) {
+    public DefaultGame(ParticleRandomizer rand, ScoringStrategy sc) {
         particles = new CircularList<>(19);
         randomizer = rand;
         scoringStrategy = sc;
@@ -28,7 +28,7 @@ public class Game {
         next = randomizer.generateNext(this);
     }
 
-    public List<FusionResult> processTick() {
+    protected List<FusionResult> processTick() {
         System.out.println("pt " + particles);
         List<FusionResult> r = new ArrayList<>();
         Integer fusionCenter = findFusion();
@@ -132,8 +132,8 @@ public class Game {
         return particles;
     }
 
-    public Particle getNext() {
-        return next;
+    public List<Particle> getNext() {
+        return List.of(next);
     }
 
     /**

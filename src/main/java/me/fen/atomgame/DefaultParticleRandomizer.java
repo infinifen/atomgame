@@ -1,5 +1,7 @@
 package me.fen.atomgame;
 
+import me.fen.atomgame.gamemodes.DefaultGame;
+import me.fen.atomgame.gamemodes.Gamemode;
 import me.fen.atomgame.particles.*;
 
 import java.util.Random;
@@ -8,22 +10,21 @@ public class DefaultParticleRandomizer implements ParticleRandomizer {
     public static final double ATOM_CUTOFF = 0.0;
     public static final double PLUS_CUTOFF = 0.7; // 70% atom chance
     private static final double MINUS_CUTOFF = 0.91; // 21% plus chance
-    public static final double DARK_PLUS_CUTOFF = 0.985; // 7.5% minus chance, 1,5% dark plus chance
+    public static final double DARK_PLUS_CUTOFF = 0.985; // 7.5% minus chance, 1.5% dark plus chance
 
 
-    private Random rng = new Random();
+    private final Random rng = new Random();
     //remembers the highest average yet
     private long highAvg = 1;
 
     @Override
-    public Particle generateNext(Game game) {
+    public Particle generateNext(Gamemode game) {
         double roll = rng.nextDouble();
         if (roll > DARK_PLUS_CUTOFF) {
-//            System.out.println("dark plus not implemented yet");
             return new DarkPlus();
         }
         if (roll > MINUS_CUTOFF) {
-            if (game.particles.size() > 0) return new Minus();
+            if (game.getParticles().size() > 0) return new Minus();
             else return new Plus();
         }
         if (roll > PLUS_CUTOFF) {
@@ -32,9 +33,9 @@ public class DefaultParticleRandomizer implements ParticleRandomizer {
         return generateAtom(game);
     }
 
-    private Atom generateAtom(Game game) {
+    private Atom generateAtom(Gamemode game) {
         //results in 0 if there's no atoms
-        double avg = game.particles.stream().filter(Utils::isAtom)
+        double avg = game.getParticles().stream().filter(Utils::isAtom)
                 .mapToInt(p -> ((Atom) p).getAtomicNumber())
                 .average().orElse(0.0);
         highAvg = Math.max((int) avg, highAvg);

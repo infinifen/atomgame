@@ -1,5 +1,8 @@
 package me.fen.atomgame;
 
+import me.fen.atomgame.gamemodes.ClassicGame;
+import me.fen.atomgame.gamemodes.DefaultGame;
+import me.fen.atomgame.gamemodes.Gamemode;
 import me.fen.atomgame.particles.Atom;
 import me.fen.atomgame.particles.DarkPlus;
 import me.fen.atomgame.particles.Particle;
@@ -11,9 +14,9 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        Game g = new Game(new DefaultParticleRandomizer(), new DefaultScoringStrategy());
-        Particle[] a = {new Atom(4), new Atom(3), new DarkPlus(), new Plus(), new Atom(3)};
-        g.particles = new CircularList<>(List.of(a));
+        Gamemode g = new ClassicGame();
+//        Particle[] a = {new Atom(4), new Atom(3), new DarkPlus(), new Plus(), new Atom(3)};
+//        g.particles = new CircularList<>(List.of(a));
         while (!g.isGameOver()) {
             System.out.println(g);
             System.out.print("enter idx to insert after: ");
