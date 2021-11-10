@@ -26,7 +26,7 @@ public class DefaultGame {
     }
 
     protected void rerollNext() {
-        next = randomizer.generateNext(this);
+        next = randomizer.generateNext((Gamemode) this);
     }
 
     protected List<FusionResult> processTick() {
