@@ -143,24 +143,34 @@ public class DefaultGame implements Gamemode {
      * @return Result of fusion or null if no fusion occured
      */
     public List<FusionResult> doMove(int placementIndex) throws GameOverException {
-        if (isGameOver()) {
-            scoringStrategy.scoreGameOver(this);
-            throw new GameOverException();
-        }
+        insertParticle(placementIndex);
+        return processLogic();
+    }
+
+    @Override
+    public void insertParticle(int placementIndex) {
         ParticleType particleType = next.get(0).getParticleType();
-        return switch (particleType) {
+        switch (particleType) {
             case ATOM, PLUS, DARK_PLUS -> {
                 particles.add(placementIndex, next.get(0));
                 isNextMinusAbsorbed = false;
                 rerollNext();
-                yield processTick();
             }
             case MINUS -> {
                 next.set(0, particles.remove(placementIndex));
                 isNextMinusAbsorbed = true;
-                yield processTick();
             }
-        };
+        }
+    }
+
+    @Override
+    public List<FusionResult> processLogic() throws GameOverException {
+        if (isGameOver()) {
+            scoringStrategy.scoreGameOver(this);
+            throw new GameOverException();
+        } else {
+            return processTick();
+        }
     }
 
     public long getScore() {

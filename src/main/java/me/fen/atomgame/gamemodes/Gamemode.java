@@ -14,6 +14,10 @@ public interface Gamemode {
 
     List<FusionResult> doMove(int placementIndex) throws GameOverException;
 
+    void insertParticle(int placementIndex);
+
+    List<FusionResult> processLogic() throws GameOverException;
+
     long getScore();
 
     boolean isGameOver();
