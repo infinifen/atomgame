@@ -10,12 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DefaultGame implements Gamemode {
-    public static final int PARTICLE_LIMIT = 18;
+    public static int PARTICLE_LIMIT = 18;
     boolean isNextMinusAbsorbed = false;
-    CircularList<Particle> particles;
-    List<Particle> next = new ArrayList<>(List.of(new Plus())); // workaroundish placeholder plus
-    ParticleRandomizer randomizer;
-    ScoringStrategy scoringStrategy;
+    protected CircularList<Particle> particles;
+    protected List<Particle> next = new ArrayList<>(List.of(new Plus())); // workaroundish placeholder plus
+    protected ParticleRandomizer randomizer;
+    protected ScoringStrategy scoringStrategy;
 
     public DefaultGame(ParticleRandomizer rand, ScoringStrategy sc) {
         particles = new CircularList<>(19);
