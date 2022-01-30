@@ -1,10 +1,13 @@
 package me.fen.atomgame.gamemodes;
 
+import me.fen.atomgame.ParticleRandomizer;
+import me.fen.atomgame.ScoringStrategy;
+
 import java.util.ArrayList;
 
-public class NNextsGame extends ClassicGame implements Gamemode {
-    public NNextsGame(int nexts) {
-        super();
+public class NNextsGame extends DefaultGame implements Gamemode {
+    public NNextsGame(int nexts, ParticleRandomizer randomizer, ScoringStrategy sc) {
+        super(randomizer, sc);
         next = new ArrayList<>(nexts + 1);
         for (int i = 0; i < nexts; i++) {
             next.add(randomizer.generateNext(this));
