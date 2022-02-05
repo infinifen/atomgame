@@ -8,12 +8,13 @@ import me.fen.atomgame.particles.Plus;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class DefaultGame implements Gamemode {
     public static int PARTICLE_LIMIT = 18;
     boolean isNextMinusAbsorbed = false;
     protected CircularList<Particle> particles;
-    protected List<Particle> next = new ArrayList<>(List.of(new Plus())); // workaroundish placeholder plus
+    protected List<Particle> next = new ArrayList<>(1);
     protected ParticleRandomizer randomizer;
     protected ScoringStrategy scoringStrategy;
 
@@ -48,10 +49,12 @@ public class DefaultGame implements Gamemode {
         int end = result.center + result.radius;
         System.out.println(result);
         // can't replace with sublist because circular array magic can make it not work
+        // remove all particles affected by reaction
         for (int i = end; i >= start; i--) {
-            particles.remove(i);
-        } // remove all particles affected by reaction
+            particles.set(i, null);
+        }
         particles.add(start, new Atom(result.newAtomicNumber));
+        particles.removeIf(Objects::isNull);
     }
 
     /**
