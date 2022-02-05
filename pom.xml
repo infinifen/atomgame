@@ -6,7 +6,7 @@
 
     <groupId>me.fen</groupId>
     <artifactId>atomgame</artifactId>
-    <version>0.5.2</version>
+    <version>0.5.3</version>
     <packaging>jar</packaging>
     <name>atomgame</name>
     <build>

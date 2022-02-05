@@ -20,7 +20,6 @@ public class DefaultGame implements Gamemode {
 
     public DefaultGame(ParticleRandomizer rand, ScoringStrategy sc) {
         particles = new CircularList<>(19);
-        particles.addAll(List.of(new Atom(5), new Atom(4), new Plus(), new Atom(5), new Plus()));
         randomizer = rand;
         scoringStrategy = sc;
         rerollNext();
