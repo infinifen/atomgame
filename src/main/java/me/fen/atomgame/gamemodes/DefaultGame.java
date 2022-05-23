@@ -13,7 +13,7 @@ import java.util.Objects;
 public class DefaultGame implements Gamemode {
     public static int PARTICLE_LIMIT = 18;
     boolean isNextMinusAbsorbed = false;
-    protected CircularList<Particle> particles;
+    CircularList<Particle> particles;
     protected List<Particle> next = new ArrayList<>(1);
     protected ParticleRandomizer randomizer;
     protected ScoringStrategy scoringStrategy;
@@ -48,7 +48,7 @@ public class DefaultGame implements Gamemode {
         int start = result.center - result.radius;
         int end = result.center + result.radius;
         System.out.println(result);
-        // can't replace with sublist because circular array magic can make it not work
+        // can't replace with sublist because circular array magic can make it not work (read as i am too lazy to implement it)
         // remove all particles affected by reaction
         for (int i = end; i >= start; i--) {
             particles.set(i, null);
