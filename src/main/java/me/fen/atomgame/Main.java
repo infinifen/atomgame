@@ -22,10 +22,9 @@ public class Main {
             else {
                 int idx = Integer.parseInt(line);
                 try {
-                    List<FusionResult> fr = g.doMove(idx);
-                    if (fr.size() > 0) {
-                        System.out.println("Reaction(s) occured: " + fr);
-                    }
+                    TickResult tr = g.doMove(idx);
+                    List<FusionResult> fr = tr.fusions;
+                    System.out.println("tick result: " + tr);
                 } catch (GameOverException e) {
                     System.out.println("Game over! Final score: " + g.getScore());
                     System.exit(0);

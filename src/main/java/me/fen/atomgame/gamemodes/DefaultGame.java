@@ -29,22 +29,23 @@ public class DefaultGame implements Gamemode {
         next.set(0, randomizer.generateNext(this));
     }
 
-    protected List<FusionResult> processTick() {
+    protected TickResult processTick() {
         System.out.println("pt " + particles);
-        List<FusionResult> r = new ArrayList<>();
+        CircularList<Particle> beforeFusions = new CircularList<>(particles);
+        List<FusionResult> frs = new ArrayList<>();
         Integer fusionCenter = findFusion();
         while (fusionCenter != null) {
             FusionResult result = processFusion(fusionCenter);
             scoringStrategy.scoreFusion(result, this);
-            removeFusedParticles(result);
-            r.add(result);
+            replaceFusedParticles(result);
+            result.particlesAfter = new CircularList<>(particles);
+            frs.add(result);
             fusionCenter = findFusion();
         }
-
-        return r;
+        return new TickResult(frs, beforeFusions);
     }
 
-    protected void removeFusedParticles(FusionResult result) {
+    protected void replaceFusedParticles(FusionResult result) {
         int start = result.center - result.radius;
         int end = result.center + result.radius;
         System.out.println(result);
@@ -53,8 +54,8 @@ public class DefaultGame implements Gamemode {
         for (int i = end; i >= start; i--) {
             particles.set(i, null);
         }
-        particles.add(start, new Atom(result.newAtomicNumber));
         particles.removeIf(Objects::isNull);
+        particles.add(start, new Atom(result.newAtomicNumber));
     }
 
     /**
@@ -128,7 +129,7 @@ public class DefaultGame implements Gamemode {
             }
             break;
         }
-        return new FusionResult(newAtomicNumber, center, radius - 1, atomicNumberSteps);
+        return new FusionResult(newAtomicNumber, center, radius - 1, atomicNumberSteps, null);
     }
 
     public CircularList<Particle> getParticles() {
@@ -143,9 +144,9 @@ public class DefaultGame implements Gamemode {
      * Applies the next particle to the given index and processes physics
      *
      * @param placementIndex index to which the current particle should be applied
-     * @return Result of fusion or null if no fusion occured
+     * @return result of move
      */
-    public List<FusionResult> doMove(int placementIndex) throws GameOverException {
+    public TickResult doMove(int placementIndex) throws GameOverException {
         insertParticle(placementIndex);
         return processLogic();
     }
@@ -167,7 +168,7 @@ public class DefaultGame implements Gamemode {
     }
 
     @Override
-    public List<FusionResult> processLogic() throws GameOverException {
+    public TickResult processLogic() throws GameOverException {
         if (isGameOver()) {
             scoringStrategy.scoreGameOver(this);
             throw new GameOverException();
