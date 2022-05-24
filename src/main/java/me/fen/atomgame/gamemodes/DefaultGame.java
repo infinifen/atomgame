@@ -151,7 +151,6 @@ public class DefaultGame implements Gamemode {
         return processLogic();
     }
 
-    @Override
     public void insertParticle(int placementIndex) {
         ParticleType particleType = next.get(0).getParticleType();
         switch (particleType) {
@@ -167,7 +166,6 @@ public class DefaultGame implements Gamemode {
         }
     }
 
-    @Override
     public TickResult processLogic() throws GameOverException {
         if (isGameOver()) {
             scoringStrategy.scoreGameOver(this);
