@@ -5,8 +5,8 @@ import me.fen.atomgame.particles.Particle;
 import java.util.List;
 
 public class TickResult {
-    List<FusionResult> fusions;
-    CircularList<Particle> initialParticles;
+    public List<FusionResult> fusions;
+    public CircularList<Particle> initialParticles;
 
     public TickResult(List<FusionResult> fusions, CircularList<Particle> initialParticles) {
         this.fusions = fusions;
