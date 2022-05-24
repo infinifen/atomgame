@@ -30,7 +30,6 @@ public class DefaultGame implements Gamemode {
     }
 
     protected TickResult processTick() {
-        System.out.println("pt " + particles);
         CircularList<Particle> beforeFusions = new CircularList<>(particles);
         List<FusionResult> frs = new ArrayList<>();
         Integer fusionCenter = findFusion();
@@ -48,7 +47,6 @@ public class DefaultGame implements Gamemode {
     protected void replaceFusedParticles(FusionResult result) {
         int start = result.center - result.radius;
         int end = result.center + result.radius;
-        System.out.println(result);
         // can't replace with sublist because circular array magic can make it not work
         // remove all particles affected by reaction
         for (int i = end; i >= start; i--) {
@@ -65,19 +63,14 @@ public class DefaultGame implements Gamemode {
         if (particles.size() < 3) // no fusion can possibly occur with less than 3 particles
             return null;
         for (int i = 0; i < particles.size(); i++) {
-//            System.out.format("checking %d\n", i);
             Particle center = particles.get(i);
             Particle next = particles.get(i + 1);
             Particle prev = particles.get(i - 1);
-//            System.out.println(prev);
-//            System.out.println(center);
-//            System.out.println(next);
             if (Utils.isDarkPlus(center)) {
                 return i;
             }
             if (Utils.isAtom(next) && Utils.isAtom(prev) && Utils.isPlus(center)) {
                 if (prev.getReactionValue() == next.getReactionValue()) {
-                    System.out.format("Fusion with center on %d\n", i);
                     return i;
                 }
             }
@@ -98,7 +91,6 @@ public class DefaultGame implements Gamemode {
             // dark plus increments the atomic number of the larger of the things by 3
             newAtomicNumber = Math.max(prev.getReactionValue(), next.getReactionValue()) + 3;
             atomicNumberSteps.add(newAtomicNumber);
-            System.out.println(newAtomicNumber);
         } else {
             radius = 1;
             newAtomicNumber = particles.get(center + 1).getReactionValue();
