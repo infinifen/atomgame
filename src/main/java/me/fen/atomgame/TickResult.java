@@ -6,18 +6,26 @@ import java.util.List;
 
 public class TickResult {
     public List<FusionResult> fusions;
-    public CircularList<Particle> initialParticles;
+    public CircularList<Particle> beforeInput;
+    public CircularList<Particle> afterInput;
 
-    public TickResult(List<FusionResult> fusions, CircularList<Particle> initialParticles) {
+    public TickResult(List<FusionResult> fusions, CircularList<Particle> beforeInput, CircularList<Particle> afterInput) {
         this.fusions = fusions;
-        this.initialParticles = initialParticles;
+        this.beforeInput = beforeInput;
+        this.afterInput = afterInput;
+    }
+
+    public TickResult(List<FusionResult> fusions, CircularList<Particle> afterInput) {
+        this.fusions = fusions;
+        this.afterInput = afterInput;
     }
 
     @Override
     public String toString() {
         return "TickResult{" +
                 "fusions=" + fusions +
-                ", initialParticles=" + initialParticles +
+                ", beforeInput=" + beforeInput +
+                ", afterInput=" + afterInput +
                 '}';
     }
 }

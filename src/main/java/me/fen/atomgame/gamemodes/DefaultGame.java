@@ -147,8 +147,11 @@ public class DefaultGame implements Gamemode {
      * @return result of move
      */
     public TickResult doMove(int placementIndex) throws GameOverException {
+        CircularList<Particle> beforeInput = new CircularList<>(particles);
         insertParticle(placementIndex);
-        return processLogic();
+        TickResult tr = processLogic();
+        tr.beforeInput = beforeInput;
+        return tr;
     }
 
     public void insertParticle(int placementIndex) {
