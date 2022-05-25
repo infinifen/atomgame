@@ -142,7 +142,7 @@ public class DefaultGame implements Gamemode {
         CircularList<Particle> beforeInput = new CircularList<>(particles);
         insertParticle(placementIndex);
         TickResult tr = processLogic();
-        tr.beforeInput = beforeInput;
+        tr.initialParticles = beforeInput;
         return tr;
     }
 
