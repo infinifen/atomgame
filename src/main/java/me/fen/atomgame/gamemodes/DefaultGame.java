@@ -52,8 +52,8 @@ public class DefaultGame implements Gamemode {
         for (int i = end; i >= start; i--) {
             particles.set(i, null);
         }
-        particles.removeIf(Objects::isNull);
         particles.add(start, new Atom(result.newAtomicNumber));
+        particles.removeIf(Objects::isNull);
     }
 
     /**
