@@ -14,10 +14,6 @@ public interface Gamemode {
 
     TickResult doMove(int placementIndex) throws GameOverException;
 
-//    void insertParticle(int placementIndex);
-//
-//    TickResult processLogic() throws GameOverException;
-
     long getScore();
 
     boolean isGameOver();
