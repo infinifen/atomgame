@@ -29,25 +29,24 @@ public class DefaultGame implements Gamemode {
         next.set(0, randomizer.generateNext(this));
     }
 
-    protected List<FusionResult> processTick() {
-        System.out.println("pt " + particles);
-        List<FusionResult> r = new ArrayList<>();
+    protected TickResult processTick() {
+        CircularList<Particle> beforeFusions = new CircularList<>(particles);
+        List<FusionResult> frs = new ArrayList<>();
         Integer fusionCenter = findFusion();
         while (fusionCenter != null) {
             FusionResult result = processFusion(fusionCenter);
             scoringStrategy.scoreFusion(result, this);
-            removeFusedParticles(result);
-            r.add(result);
+            replaceFusedParticles(result);
+            result.particlesAfter = new CircularList<>(particles);
+            frs.add(result);
             fusionCenter = findFusion();
         }
-
-        return r;
+        return new TickResult(frs, beforeFusions);
     }
 
-    protected void removeFusedParticles(FusionResult result) {
+    protected void replaceFusedParticles(FusionResult result) {
         int start = result.center - result.radius;
         int end = result.center + result.radius;
-        System.out.println(result);
         // can't replace with sublist because circular array magic can make it not work
         // remove all particles affected by reaction
         for (int i = end; i >= start; i--) {
@@ -64,19 +63,14 @@ public class DefaultGame implements Gamemode {
         if (particles.size() < 3) // no fusion can possibly occur with less than 3 particles
             return null;
         for (int i = 0; i < particles.size(); i++) {
-//            System.out.format("checking %d\n", i);
             Particle center = particles.get(i);
             Particle next = particles.get(i + 1);
             Particle prev = particles.get(i - 1);
-//            System.out.println(prev);
-//            System.out.println(center);
-//            System.out.println(next);
             if (Utils.isDarkPlus(center)) {
                 return i;
             }
             if (Utils.isAtom(next) && Utils.isAtom(prev) && Utils.isPlus(center)) {
                 if (prev.getReactionValue() == next.getReactionValue()) {
-                    System.out.format("Fusion with center on %d\n", i);
                     return i;
                 }
             }
@@ -97,7 +91,6 @@ public class DefaultGame implements Gamemode {
             // dark plus increments the atomic number of the larger of the things by 3
             newAtomicNumber = Math.max(prev.getReactionValue(), next.getReactionValue()) + 3;
             atomicNumberSteps.add(newAtomicNumber);
-            System.out.println(newAtomicNumber);
         } else {
             radius = 1;
             newAtomicNumber = particles.get(center + 1).getReactionValue();
@@ -128,7 +121,7 @@ public class DefaultGame implements Gamemode {
             }
             break;
         }
-        return new FusionResult(newAtomicNumber, center, radius - 1, atomicNumberSteps);
+        return new FusionResult(newAtomicNumber, center, radius - 1, atomicNumberSteps, null);
     }
 
     public CircularList<Particle> getParticles() {
@@ -143,14 +136,16 @@ public class DefaultGame implements Gamemode {
      * Applies the next particle to the given index and processes physics
      *
      * @param placementIndex index to which the current particle should be applied
-     * @return Result of fusion or null if no fusion occured
+     * @return result of move
      */
-    public List<FusionResult> doMove(int placementIndex) throws GameOverException {
+    public TickResult doMove(int placementIndex) throws GameOverException {
+        CircularList<Particle> beforeInput = new CircularList<>(particles);
         insertParticle(placementIndex);
-        return processLogic();
+        TickResult tr = processLogic();
+        tr.initialParticles = beforeInput;
+        return tr;
     }
 
-    @Override
     public void insertParticle(int placementIndex) {
         ParticleType particleType = next.get(0).getParticleType();
         switch (particleType) {
@@ -166,8 +161,7 @@ public class DefaultGame implements Gamemode {
         }
     }
 
-    @Override
-    public List<FusionResult> processLogic() throws GameOverException {
+    public TickResult processLogic() throws GameOverException {
         if (isGameOver()) {
             scoringStrategy.scoreGameOver(this);
             throw new GameOverException();

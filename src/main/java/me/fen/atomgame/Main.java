@@ -10,8 +10,6 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Gamemode g = new NNextsGame(4, new DefaultParticleRandomizer(), new DefaultScoringStrategy());
-//        Particle[] a = {new Atom(4), new Atom(3), new DarkPlus(), new Plus(), new Atom(3)};
-//        g.particles = new CircularList<>(List.of(a));
         while (!g.isGameOver()) {
             System.out.println(g);
             System.out.print("enter idx to insert after: ");
@@ -22,10 +20,9 @@ public class Main {
             else {
                 int idx = Integer.parseInt(line);
                 try {
-                    List<FusionResult> fr = g.doMove(idx);
-                    if (fr.size() > 0) {
-                        System.out.println("Reaction(s) occured: " + fr);
-                    }
+                    TickResult tr = g.doMove(idx);
+                    List<FusionResult> fr = tr.fusions;
+                    System.out.println("tick result: " + tr);
                 } catch (GameOverException e) {
                     System.out.println("Game over! Final score: " + g.getScore());
                     System.exit(0);
