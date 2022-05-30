@@ -2,6 +2,8 @@ package me.fen.atomgame.particles;
 
 import me.fen.atomgame.AtomData;
 
+import java.util.Objects;
+
 public class Atom implements Particle {
 
     private Integer atomicNumber;
@@ -26,6 +28,11 @@ public class Atom implements Particle {
 
     public Integer getAtomicNumber() {
         return atomicNumber;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Atom && Objects.equals(((Atom) obj).atomicNumber, this.atomicNumber);
     }
 
 

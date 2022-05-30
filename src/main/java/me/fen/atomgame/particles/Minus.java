@@ -1,6 +1,9 @@
 package me.fen.atomgame.particles;
 
 public class Minus implements Particle {
+    public Minus() {
+    }
+
     @Override
     public int getReactionValue() {
         return 1;
@@ -11,7 +14,9 @@ public class Minus implements Particle {
         return true;
     }
 
-    public Minus() {
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Minus;
     }
 
     @Override
