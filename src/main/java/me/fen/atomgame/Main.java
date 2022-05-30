@@ -3,7 +3,6 @@ package me.fen.atomgame;
 import me.fen.atomgame.gamemodes.Gamemode;
 import me.fen.atomgame.gamemodes.NNextsGame;
 
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -21,7 +20,6 @@ public class Main {
                 int idx = Integer.parseInt(line);
                 try {
                     TickResult tr = g.doMove(idx);
-                    List<FusionResult> fr = tr.fusions;
                     System.out.println("tick result: " + tr);
                 } catch (GameOverException e) {
                     System.out.println("Game over! Final score: " + g.getScore());
