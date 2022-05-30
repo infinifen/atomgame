@@ -22,6 +22,7 @@ public class DefaultGame implements Gamemode {
         particles = new CircularList<>(19);
         randomizer = rand;
         scoringStrategy = sc;
+        next.add(null);
         rerollNext();
     }
 
