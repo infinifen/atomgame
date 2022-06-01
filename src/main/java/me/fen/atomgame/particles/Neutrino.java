@@ -1,7 +1,12 @@
 package me.fen.atomgame.particles;
 
-public class Minus implements Particle {
-    public Minus() {
+public class Neutrino implements Particle {
+    public Neutrino() {
+    }
+
+    @Override
+    public ParticleType getParticleType() {
+        return ParticleType.NEUTRINO;
     }
 
     @Override
@@ -16,21 +21,16 @@ public class Minus implements Particle {
 
     @Override
     public boolean equals(Object obj) {
-        return obj instanceof Minus;
-    }
-
-    @Override
-    public ParticleType getParticleType() {
-        return ParticleType.MINUS;
+        return obj instanceof Neutrino;
     }
 
     @Override
     public String toString() {
-        return "minus";
+        return "ntr";
     }
 
     @Override
     public Particle copy() {
-        return new Minus();
+        return new Neutrino();
     }
 }

@@ -20,7 +20,17 @@ public class DarkPlus implements Particle {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        return obj instanceof DarkPlus;
+    }
+
+    @Override
     public String toString() {
         return "dark plus";
+    }
+
+    @Override
+    public Particle copy() {
+        return new DarkPlus();
     }
 }

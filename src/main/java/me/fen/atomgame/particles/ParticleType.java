@@ -4,6 +4,7 @@ public enum ParticleType {
     ATOM,
     DARK_PLUS,
     MINUS,
-    PLUS
+    PLUS,
+    NEUTRINO,
 
 }

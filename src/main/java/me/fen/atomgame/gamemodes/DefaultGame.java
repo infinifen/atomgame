@@ -22,6 +22,7 @@ public class DefaultGame implements Gamemode {
         particles = new CircularList<>(19);
         randomizer = rand;
         scoringStrategy = sc;
+        next.add(null);
         rerollNext();
     }
 
@@ -157,6 +158,9 @@ public class DefaultGame implements Gamemode {
             case MINUS -> {
                 next.set(0, particles.remove(placementIndex));
                 isNextMinusAbsorbed = true;
+            }
+            case NEUTRINO -> {
+                next.set(0, particles.get(placementIndex).copy());
             }
         }
     }

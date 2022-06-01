@@ -20,7 +20,17 @@ public class Plus implements Particle {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Plus;
+    }
+
+    @Override
     public String toString() {
         return "plus";
+    }
+
+    @Override
+    public Particle copy() {
+        return new Plus();
     }
 }

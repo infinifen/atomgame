@@ -2,6 +2,8 @@ package me.fen.atomgame.particles;
 
 import me.fen.atomgame.AtomData;
 
+import java.util.Objects;
+
 public class Atom implements Particle {
 
     private Integer atomicNumber;
@@ -28,6 +30,11 @@ public class Atom implements Particle {
         return atomicNumber;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Atom && Objects.equals(((Atom) obj).atomicNumber, this.atomicNumber);
+    }
+
 
     // maybe do something else for atoms >118?
     @Override
@@ -39,5 +46,9 @@ public class Atom implements Particle {
         return AtomData.atoms[atomicNumber - 1][0];
     }
 
+    @Override
+    public Particle copy() {
+        return new Atom(atomicNumber);
+    }
 }
 
