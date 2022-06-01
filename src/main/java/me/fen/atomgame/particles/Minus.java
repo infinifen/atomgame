@@ -28,4 +28,9 @@ public class Minus implements Particle {
     public String toString() {
         return "minus";
     }
+
+    @Override
+    public Particle copy() {
+        return new Minus();
+    }
 }

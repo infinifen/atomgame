@@ -28,4 +28,9 @@ public class Plus implements Particle {
     public String toString() {
         return "plus";
     }
+
+    @Override
+    public Particle copy() {
+        return new Plus();
+    }
 }

@@ -28,4 +28,9 @@ public class DarkPlus implements Particle {
     public String toString() {
         return "dark plus";
     }
+
+    @Override
+    public Particle copy() {
+        return new DarkPlus();
+    }
 }

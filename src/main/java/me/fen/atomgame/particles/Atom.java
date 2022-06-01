@@ -46,5 +46,9 @@ public class Atom implements Particle {
         return AtomData.atoms[atomicNumber - 1][0];
     }
 
+    @Override
+    public Particle copy() {
+        return new Atom(atomicNumber);
+    }
 }
 
