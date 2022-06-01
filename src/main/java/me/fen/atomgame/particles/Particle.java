@@ -5,4 +5,6 @@ public interface Particle {
     int getReactionValue();
 
     boolean isAtomOperation();
+
+    Particle copy();
 }

@@ -159,6 +159,9 @@ public class DefaultGame implements Gamemode {
                 next.set(0, particles.remove(placementIndex));
                 isNextMinusAbsorbed = true;
             }
+            case NEUTRINO -> {
+                next.set(0, particles.get(placementIndex).copy());
+            }
         }
     }
 

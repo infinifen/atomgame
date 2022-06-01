@@ -19,4 +19,8 @@ public class Utils {
     public static boolean isDarkPlus(Particle p) {
         return p.getParticleType() == ParticleType.DARK_PLUS;
     }
+
+    public static boolean isNeutrino(Particle p) {
+        return p.getParticleType() == ParticleType.NEUTRINO;
+    }
 }
