@@ -8,7 +8,6 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println(Arrays.toString("+".split(" ")));
         Scanner sc = new Scanner(System.in);
         Gamemode g = new NNextsGame(4, new DefaultParticleRandomizer(), new DefaultScoringStrategy());
         while (!g.isGameOver()) {
