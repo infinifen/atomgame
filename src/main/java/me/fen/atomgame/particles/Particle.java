@@ -7,4 +7,6 @@ public interface Particle {
     boolean isAtomOperation();
 
     Particle copy();
+
+    boolean weakEquals(Particle other);
 }

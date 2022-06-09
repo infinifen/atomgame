@@ -31,7 +31,7 @@ public class Atom implements Particle {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean weakEquals(Particle obj) {
         return obj instanceof Atom && Objects.equals(((Atom) obj).atomicNumber, this.atomicNumber);
     }
 

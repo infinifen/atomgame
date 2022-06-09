@@ -20,7 +20,7 @@ public class DarkPlus implements Particle {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean weakEquals(Particle obj) {
         return obj instanceof DarkPlus;
     }
 
