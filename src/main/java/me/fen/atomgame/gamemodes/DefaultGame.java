@@ -53,7 +53,9 @@ public class DefaultGame implements Gamemode {
         for (int i = end; i >= start; i--) {
             particles.set(i, null);
         }
-        particles.add(start, new Atom(result.newAtomicNumber));
+        Particle fusedParticle = new Atom(result.newAtomicNumber);
+        result.fusedParticle = fusedParticle;
+        particles.add(start, fusedParticle);
         particles.removeIf(Objects::isNull);
     }
 
@@ -122,7 +124,7 @@ public class DefaultGame implements Gamemode {
             }
             break;
         }
-        return new FusionResult(newAtomicNumber, center, radius - 1, atomicNumberSteps, null);
+        return new FusionResult(newAtomicNumber, center, radius - 1, atomicNumberSteps, null, null); // nulls are filled in later
     }
 
     public CircularList<Particle> getParticles() {
